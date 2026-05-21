@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import mongoose from "mongoose";
-import Accommodation from "../../src/models/Accommondation.js";
+import mongoose from "../../src/db/mongoose.js";
+import Accommodation from "../../src/models/Accommodation.js";
 
 describe("Accommodation model", () => {
   it("ska kräva address", () => {

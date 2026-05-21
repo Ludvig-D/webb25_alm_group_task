@@ -1,14 +1,8 @@
-const mongoose = require("mongoose");
-const { randomUUID } = require("crypto");
+import mongoose from "../db/mongoose.js";
+import "./Accommodation.js";
 
 const userSchema = new mongoose.Schema(
   {
-    id: {
-      type: String,
-      required: true,
-      unique: true,
-      default: randomUUID,
-    },
     username: {
       type: String,
       required: true,
@@ -36,4 +30,14 @@ const userSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model("User", userSchema);
+// Cascade delete: radera alla Accommodation när User raderas
+userSchema.pre("findOneAndDelete", async function (next) {
+  const filter = this.getFilter();
+  const userId = filter._id;
+
+  await mongoose.model("Accommodation").deleteMany({ userId });
+
+  next();
+});
+
+export default mongoose.model("User", userSchema);

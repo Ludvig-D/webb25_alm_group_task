@@ -6,7 +6,7 @@
  */
 
 import { MongoMemoryServer } from "mongodb-memory-server";
-import mongoose from "mongoose";
+import mongoose from "../src/db/mongoose.js";
 import { beforeAll, afterAll, afterEach, describe, it, expect } from "vitest";
 
 // ==========================================
