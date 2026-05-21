@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("../db/mongoose.js");
 const { randomUUID } = require("crypto");
 const { default: Accommondation } = require("./Accommondation.js");
 
