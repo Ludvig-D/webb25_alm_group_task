@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const { default: mongoose } = require("../db/mongoose.js");
 
 const accommodationSchema = new mongoose.Schema(
   {
@@ -10,11 +10,13 @@ const accommodationSchema = new mongoose.Schema(
     rooms: { type: Number, required: true },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
   },
   { timestamps: true },
 );
 
-export default mongoose.model('Accommodation', accommodationSchema);
+module.exports =
+  mongoose.models.Accommodation ||
+  mongoose.model("Accommodation", accommodationSchema);

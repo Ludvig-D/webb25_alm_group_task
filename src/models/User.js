@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { default: Accommondation } = require('./Accommondation.js');
+const { default: mongoose } = require('../db/mongoose.js');
+const Accommodation = require('./Accommodation.js');
 
 const userSchema = new mongoose.Schema(
   {
@@ -31,8 +31,16 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre('remove', async function (next) {
-  await Accommondation.findOneAndDelete({ userId: this._id });
+  await Accommodation.deleteMany({ userId: this._id });
   next();
 });
 
-module.exports = mongoose.model('User', userSchema);
+userSchema.pre('findOneAndDelete', async function (next) {
+  const user = await this.model.findOne(this.getFilter());
+  if (user) {
+    await Accommodation.deleteMany({ userId: user._id });
+  }
+  next();
+});
+
+module.exports = mongoose.models.User || mongoose.model('User', userSchema);
