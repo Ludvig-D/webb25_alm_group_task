@@ -1,15 +1,8 @@
 const mongoose = require('mongoose');
-const { randomUUID } = require('crypto');
 const { default: Accommondation } = require('./Accommondation.js');
 
 const userSchema = new mongoose.Schema(
   {
-    id: {
-      type: String,
-      required: true,
-      unique: true,
-      default: randomUUID,
-    },
     username: {
       type: String,
       required: true,
