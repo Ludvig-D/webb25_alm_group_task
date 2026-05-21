@@ -1,0 +1,31 @@
+services:
+  database:
+    image: mongo:latest
+    environment:
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - private
+
+  backend:
+    build:
+      context: .
+      dockerfile: dockerfile
+      target: dev
+    ports:
+      - '3000:3000'
+    networks:
+      - private
+    depends_on:
+      - database
+
+volumes:
+  mongo_data:
+
+networks:
+  private:
+    driver: bridge
