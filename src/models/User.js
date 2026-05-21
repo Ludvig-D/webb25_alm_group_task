@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const { randomUUID } = require("crypto");
+const mongoose = require('mongoose');
+const { randomUUID } = require('crypto');
+const { default: Accommondation } = require('./Accommondation.js');
 
 const userSchema = new mongoose.Schema(
   {
@@ -22,18 +23,23 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       validate: {
         validator: (v) => /^\S+@\S+\.\S+$/.test(v),
-        message: "Invalid email format",
+        message: 'Invalid email format',
       },
     },
     profileImage: {
       type: String,
       validate: {
         validator: (v) => !v || /^https?:\/\/.+\..+/.test(v),
-        message: "profileImage must be a valid URL",
+        message: 'profileImage must be a valid URL',
       },
     },
   },
   { timestamps: true },
 );
 
-module.exports = mongoose.model("User", userSchema);
+userSchema.pre('remove', async function (next) {
+  await Accommondation.findOneAndDelete({ userId: this._id });
+  next();
+});
+
+module.exports = mongoose.model('User', userSchema);
