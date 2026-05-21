@@ -1,11 +1,23 @@
 const { default: Accommondation } = require('../models/Accommondation.js');
+const User = require('../models/User.js');
 
 const router = require('express').Router();
 
 router.post('/', async (req, res) => {
+  const { address, city, country, zipCode, rent, rooms, userId } = req.body;
   try {
-    const user = await Accommondation.create(req.body);
-    res.status(201).json(user);
+    const user = await User.findById(userId);
+
+    const acc = await Accommondation.create({
+      address,
+      city,
+      country,
+      zipCode,
+      rent,
+      rooms,
+      userId: user._id,
+    });
+    res.status(201).json(acc);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
