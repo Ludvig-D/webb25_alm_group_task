@@ -14,8 +14,50 @@ describe("User Model", () => {
     expect(user.email).toBe("test@test.com");
   });
 
-  // TODO: Test that email must be unique
-  // TODO: Test that username must be unique
-  // TODO: Test that email format is validated
-  // TODO: Test that profileImage is a valid URL
+  it("should enforce unique email", async () => {
+    await User.create({
+      username: "user1",
+      email: "unique@test.com",
+    });
+
+    await expect(
+      User.create({
+        username: "user2",
+        email: "unique@test.com",
+      }),
+    ).rejects.toThrow();
+  });
+
+  it("should enforce unique username", async () => {
+    await User.create({
+      username: "sameuser",
+      email: "a@test.com",
+    });
+
+    await expect(
+      User.create({
+        username: "sameuser",
+        email: "b@test.com",
+      }),
+    ).rejects.toThrow();
+  });
+
+  it("should validate email format", async () => {
+    await expect(
+      User.create({
+        username: "bademailuser",
+        email: "not-an-email",
+      }),
+    ).rejects.toThrow("Invalid email format");
+  });
+
+  it("should validate profileImage URL", async () => {
+    await expect(
+      User.create({
+        username: "imguser",
+        email: "img@test.com",
+        profileImage: "not-a-url",
+      }),
+    ).rejects.toThrow("profileImage must be a valid URL");
+  });
 });
