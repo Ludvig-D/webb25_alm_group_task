@@ -1,6 +1,6 @@
-require("../test-setup");
-const { describe, it, expect } = require("vitest");
-const User = require("../../src/models/User");
+import "../test-setup.mjs";
+import { describe, it, expect } from "vitest";
+import User from "../../src/models/User.js";
 
 describe("User Model", () => {
   it("should create a user", async () => {

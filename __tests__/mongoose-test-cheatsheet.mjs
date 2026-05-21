@@ -5,9 +5,9 @@
  * Use this as a reference when writing your tests.
  */
 
-const { MongoMemoryServer } = require("mongodb-memory-server");
-const mongoose = require("mongoose");
-const { beforeAll, afterAll, afterEach, describe, it, expect } = require("vitest");
+import { MongoMemoryServer } from "mongodb-memory-server";
+import mongoose from "mongoose";
+import { beforeAll, afterAll, afterEach, describe, it, expect } from "vitest";
 
 // ==========================================
 // 1. Test Database Setup
@@ -94,7 +94,7 @@ describe("Basic CRUD Operations", () => {
     const updated = await Product.findByIdAndUpdate(
       product._id,
       { price: 179.99 },
-      { new: true }
+      { new: true },
     );
     expect(updated.price).toBe(179.99);
   });
@@ -135,7 +135,7 @@ describe("Model Validations", () => {
         price: 899.99,
         stock: 3,
         category: "electronics",
-      })
+      }),
     ).rejects.toThrow();
   });
 
@@ -147,7 +147,7 @@ describe("Model Validations", () => {
         price: -10,
         stock: 5,
         category: "electronics",
-      })
+      }),
     ).rejects.toThrow();
   });
 
@@ -159,13 +159,13 @@ describe("Model Validations", () => {
         price: 30,
         stock: 10,
         category: "invalid_category",
-      })
+      }),
     ).rejects.toThrow();
   });
 
   it("should require name", async () => {
     await expect(
-      Product.create({ sku: "REQ101", price: 10, stock: 5, category: "books" })
+      Product.create({ sku: "REQ101", price: 10, stock: 5, category: "books" }),
     ).rejects.toThrow();
   });
 });
@@ -177,11 +177,46 @@ describe("Model Validations", () => {
 describe("Mongoose Queries", () => {
   beforeEach(async () => {
     await Product.insertMany([
-      { name: "Laptop",     sku: "LAP101", price: 999.99, stock: 10, category: "electronics", isAvailable: true  },
-      { name: "T-Shirt",   sku: "TSH102", price: 19.99,  stock: 50, category: "clothing",    isAvailable: true  },
-      { name: "Novel",     sku: "BOK103", price: 14.99,  stock: 30, category: "books",       isAvailable: true  },
-      { name: "Pizza",     sku: "FD104",  price: 9.99,   stock: 100,category: "food",        isAvailable: false },
-      { name: "Smartphone",sku: "PHN105", price: 699.99, stock: 15, category: "electronics", isAvailable: true  },
+      {
+        name: "Laptop",
+        sku: "LAP101",
+        price: 999.99,
+        stock: 10,
+        category: "electronics",
+        isAvailable: true,
+      },
+      {
+        name: "T-Shirt",
+        sku: "TSH102",
+        price: 19.99,
+        stock: 50,
+        category: "clothing",
+        isAvailable: true,
+      },
+      {
+        name: "Novel",
+        sku: "BOK103",
+        price: 14.99,
+        stock: 30,
+        category: "books",
+        isAvailable: true,
+      },
+      {
+        name: "Pizza",
+        sku: "FD104",
+        price: 9.99,
+        stock: 100,
+        category: "food",
+        isAvailable: false,
+      },
+      {
+        name: "Smartphone",
+        sku: "PHN105",
+        price: 699.99,
+        stock: 15,
+        category: "electronics",
+        isAvailable: true,
+      },
     ]);
   });
 
