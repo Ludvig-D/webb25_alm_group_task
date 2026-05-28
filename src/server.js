@@ -1,7 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/database');
 const UserRouter = require('./routes/User');
-const AccommodationRouter = require('./routes/Accomondation')
+const AccommodationRouter = require('./routes/Accomondation.js');
 
 const app = express();
 const port = process.env.PORT || 3000;

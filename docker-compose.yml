@@ -1,9 +1,6 @@
 services:
   database:
-    image: mongo:latest
-    environment:
-      - MONGODB_USERNAME=${MONGODB_USERNAME}
-      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+    image: mongo:8.2
     ports:
       - '27017:27017'
     volumes:

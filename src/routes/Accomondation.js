@@ -1,4 +1,4 @@
-const { default: Accommondation } = require('../models/Accommondation.js');
+const { default: Accommondation } = require('../models/Accommodation.js');
 const User = require('../models/User.js');
 
 const router = require('express').Router();
