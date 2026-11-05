@@ -1,5 +1,7 @@
 # WEBB25 ALM: Gruppuppgift
 
+> School group project at **Nackademin – Webb25**.
+
 ## Beskrivning
 
 Detta är en gruppuppgift för kursen Applikationslivscykelhantering på Nackademin.
